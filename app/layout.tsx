@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import Providers from "./Providers";
 import "./globals.css";
@@ -23,6 +23,12 @@ const mullyDisplay = Playfair_Display({
 export const metadata: Metadata = {
   title: "Mully — Evinizin ev arkadaşı",
   description: "Mully puf — bouclé dokusu ve gülümseyen yüzüyle evinizin en huzurlu köşesi.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

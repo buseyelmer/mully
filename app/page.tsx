@@ -11,7 +11,7 @@ import HeroSection from "./hero-section";
 export default function Home() {
   return (
     <>
-      <section className="mully-bg-primary pt-[88px] sm:pt-[108px]">
+      <section className="mully-bg-primary pt-[88px] sm:pt-[108px] max-sm:pb-6">
         <div className="mx-auto max-w-6xl px-3 sm:px-6 md:px-10">
           <HeroVideo />
         </div>

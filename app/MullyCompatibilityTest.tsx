@@ -79,21 +79,18 @@ const questions: Question[] = [
 
 const cornerMeta: Record<
   string,
-  { label: string; href: string; buyLabel: string }
+  { label: string; buyLabel: string }
 > = {
   kitap: {
     label: "kitap köşende",
-    href: "#koleksiyon-okuma",
     buyLabel: "Kitap Köşem İçin Mully'yi Al",
   },
   tv: {
     label: "salonunda",
-    href: "#koleksiyon-salon",
     buyLabel: "Salonum İçin Mully'yi Al",
   },
   balkon: {
     label: "balkonunda",
-    href: "#koleksiyon-balkon",
     buyLabel: "Balkonum İçin Mully'yi Al",
   },
 };
@@ -120,7 +117,7 @@ const slideVariants = {
 };
 
 const gradientBtn =
-  "inline-flex items-center justify-center gap-2 rounded-full mully-accent-gradient px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-black/20 transition hover:brightness-110 active:scale-[0.98]";
+  "inline-flex w-full min-h-[48px] items-center justify-center gap-2 rounded-full mully-accent-gradient px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-black/20 transition hover:brightness-110 active:scale-[0.98] sm:w-auto sm:text-sm";
 
 function PufVisual({ puf, stepKey }: { puf: PufState; stepKey: string }) {
   return (
@@ -131,7 +128,7 @@ function PufVisual({ puf, stepKey }: { puf: PufState; stepKey: string }) {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.98 }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        className="relative mx-auto aspect-[4/5] w-full max-w-[220px] sm:max-w-[260px]"
+        className="relative mx-auto aspect-[4/5] w-full max-w-[160px] sm:max-w-[260px]"
       >
         <motion.div
           animate={{ rotate: puf.rotate, scale: puf.scale }}
@@ -235,14 +232,14 @@ export default function MullyCompatibilityTest() {
         </h2>
       </div>
 
-      <div className="relative overflow-hidden rounded-[40px] bg-[#0a0a0a] p-5 shadow-2xl shadow-black/50 ring-1 ring-white/10 sm:p-8 md:p-10">
+      <div className="relative overflow-hidden rounded-[28px] bg-[#0a0a0a] p-4 shadow-2xl shadow-black/50 ring-1 ring-white/10 sm:rounded-[40px] sm:p-8 md:p-10">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-gradient-to-br from-rose-500/5 via-transparent to-orange-500/5"
         />
 
-        <div className="relative grid items-center gap-8 md:grid-cols-[0.9fr_1.1fr] md:gap-10">
-          <div className="flex justify-center md:justify-start">
+        <div className="relative flex flex-col gap-6 md:grid md:grid-cols-[0.9fr_1.1fr] md:gap-10">
+          <div className="order-2 flex justify-center md:order-1 md:justify-start">
             <PufVisual
               puf={
                 finished
@@ -259,7 +256,7 @@ export default function MullyCompatibilityTest() {
             />
           </div>
 
-          <div className="relative min-h-[280px] sm:min-h-[300px]">
+          <div className="order-1 md:order-2">
             <AnimatePresence mode="wait">
               {!finished && current && (
                 <motion.div
@@ -273,21 +270,21 @@ export default function MullyCompatibilityTest() {
                   <p className="text-xs font-medium uppercase tracking-[0.18em] text-stone-500">
                     Soru {step + 1} / {questions.length}
                   </p>
-                  <h3 className="mully-font-display mt-3 text-xl font-medium leading-snug text-white sm:text-2xl">
+                  <h3 className="mully-font-display mt-3 text-lg font-medium leading-snug text-white sm:text-2xl">
                     {current.question}
                   </h3>
 
-                  <div className="mt-6 space-y-3">
+                  <div className="mt-5 space-y-3 sm:mt-6">
                     {current.options.map((opt) => {
                       const selected = pending === opt.value;
                       return (
                         <motion.button
                           key={opt.value}
                           type="button"
-                          whileHover={{ scale: 1.05 }}
+                          whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={() => setPending(opt.value)}
-                          className={`w-full rounded-2xl border px-4 py-3.5 text-left text-sm font-medium transition sm:py-4 sm:text-base ${
+                          className={`min-h-[48px] w-full rounded-2xl border px-4 py-3.5 text-left text-base font-medium transition sm:py-4 sm:text-base ${
                             selected
                               ? "border-rose-500/50 bg-white/10 text-white shadow-md shadow-rose-500/10"
                               : "border-white/15 bg-white/5 text-stone-300 hover:border-white/25 hover:bg-white/10 hover:text-white"
@@ -305,7 +302,7 @@ export default function MullyCompatibilityTest() {
                     disabled={!pending}
                     whileHover={pending ? { scale: 1.02 } : undefined}
                     whileTap={pending ? { scale: 0.98 } : undefined}
-                    className={`mt-6 w-full sm:w-auto ${gradientBtn} disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:brightness-100`}
+                    className={`mt-5 sm:mt-6 ${gradientBtn} disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:brightness-100`}
                   >
                     İleri
                     <ArrowRight className="h-4 w-4" />
@@ -321,18 +318,18 @@ export default function MullyCompatibilityTest() {
                   exit={{ opacity: 0, x: -40 }}
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <p className="mully-font-display text-2xl leading-snug text-white sm:text-3xl">
+                  <p className="mully-font-display text-xl leading-snug text-white sm:text-3xl">
                     {resultCopy.primary}
                   </p>
                   {resultCopy.secondary && (
-                    <p className="mully-font-display mt-2 text-lg text-stone-400 sm:text-xl">
+                    <p className="mully-font-display mt-2 text-base text-stone-400 sm:text-xl">
                       {resultCopy.secondary}
                     </p>
                   )}
 
-                  <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                  <div className="mt-6 flex flex-col gap-3 sm:mt-8">
                     {buyConfig && (
-                      <Link href={buyConfig.href} className={gradientBtn}>
+                      <Link href="/checkout" className={gradientBtn}>
                         {buyConfig.buyLabel}
                       </Link>
                     )}
@@ -343,13 +340,13 @@ export default function MullyCompatibilityTest() {
                   </div>
 
                   {shareNote && (
-                    <p className="mt-3 text-xs text-stone-500">{shareNote}</p>
+                    <p className="mt-3 text-center text-xs text-stone-500">{shareNote}</p>
                   )}
 
                   <button
                     type="button"
                     onClick={reset}
-                    className="mt-5 text-sm font-medium text-stone-500 underline-offset-2 hover:text-stone-300 hover:underline"
+                    className="mt-5 w-full text-center text-sm font-medium text-stone-500 underline-offset-2 hover:text-stone-300 hover:underline"
                   >
                     Tekrar Dene
                   </button>

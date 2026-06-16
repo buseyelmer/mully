@@ -121,6 +121,35 @@ body {
   will-change: transform;
 }
 
+/* iPhone / mobil Safari — aspect-video ezilmesini önler (< 640px) */
+@media (max-width: 639px) {
+  .mully-mobile-hero {
+    aspect-ratio: auto !important;
+    height: calc(100dvh - 5.75rem - env(safe-area-inset-bottom, 0px));
+    min-height: 540px;
+  }
+
+  .mully-mobile-match {
+    aspect-ratio: auto !important;
+    min-height: max(580px, calc(100dvh - 8rem - env(safe-area-inset-bottom, 0px)));
+  }
+
+  .mully-mobile-card-inner {
+    padding-top: max(2.75rem, 10dvh);
+    padding-bottom: max(2.25rem, calc(0.75rem + env(safe-area-inset-bottom, 0px)));
+  }
+
+  .mully-mobile-match-inner {
+    padding-top: max(2.5rem, 8dvh);
+    padding-bottom: max(1.5rem, 4dvh);
+  }
+
+  .mully-mobile-dots {
+    padding-bottom: max(1.75rem, calc(0.75rem + env(safe-area-inset-bottom, 0px)));
+    padding-top: 1rem;
+  }
+}
+
 html.mully-theme-transition *,
 html.mully-theme-transition *::before,
 html.mully-theme-transition *::after {
